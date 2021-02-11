@@ -17,12 +17,11 @@ REMOVE_JS=$(echo "$REMOVE_INDEX_JS" | sed -e "s/.js//g")
 
 NEW_BRANCH_NAME="js2ts/$REMOVE_JS"
 
-# 実行確認
-read -n1 -p "$NEW_BRANCH_NAME へgit checkoutしますか? (Y/n): " yn
-[ -z "${yn}" ] && yn="y"
-if [[ $yn != [yY] ]]; then
-  echo "中断しました"
-  exit 1
+# Enterなら実行
+read -n1 -p "$NEW_BRANCH_NAME へgit checkoutしますか? (Enter / n): " INPUT_VALUE
+if [ ! -z "$INPUT_VALUE" ]; then
+  echo '\n中断しました'
+  exit
 fi
 
 # switching branch
