@@ -1,0 +1,29 @@
+#!/usr/bin/env sh
+
+if [ $# != 1 ]; then
+    echo "Error: 引数が不正です"
+    exit 0;
+fi
+
+BRANCH_NAME=$1
+
+SRC_DIR="src\/"
+REMOVE_SRC=$(echo "$BRANCH_NAME" | sed -e "s/${SRC_DIR}//g")
+
+# join with a hyphen
+JOIN_HYPHEN=$(echo "$REMOVE_SRC" | sed -e "s/\//-/g")
+REMOVE_INDEX_JS=$(echo "$JOIN_HYPHEN" | sed -e "s/-index.js//g")
+REMOVE_JS=$(echo "$REMOVE_INDEX_JS" | sed -e "s/.js//g")
+
+NEW_BRANCH_NAME="js2ts/$REMOVE_JS"
+
+# 実行確認
+read -n1 -p "$NEW_BRANCH_NAME へgit checkoutしますか? (Y/n): " yn
+[ -z "${yn}" ] && yn="y"
+if [[ $yn != [yY] ]]; then
+  echo "中断しました"
+  exit 1
+fi
+
+# switching branch
+git checkout -b $NEW_BRANCH_NAME
