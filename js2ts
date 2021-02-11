@@ -8,18 +8,18 @@ fi
 BRANCH_NAME=$1
 
 SRC_DIR="src\/"
-REMOVE_SRC=$(echo "$BRANCH_NAME" | sed -e "s/${SRC_DIR}//g")
+REMOVE_SRC=$(echo $BRANCH_NAME | sed -e "s/${SRC_DIR}//g")
 
 # join with a hyphen
-JOIN_HYPHEN=$(echo "$REMOVE_SRC" | sed -e "s/\//-/g")
-REMOVE_INDEX_JS=$(echo "$JOIN_HYPHEN" | sed -e "s/-index.js//g")
-REMOVE_JS=$(echo "$REMOVE_INDEX_JS" | sed -e "s/.js//g")
+JOIN_HYPHEN=$(echo $REMOVE_SRC | sed -e "s/\//-/g")
+REMOVE_INDEX_JS=$(echo $JOIN_HYPHEN | sed -e "s/-index.js//g")
+REMOVE_JS=$(echo $REMOVE_INDEX_JS | sed -e "s/.js//g")
 
 NEW_BRANCH_NAME="js2ts/$REMOVE_JS"
 
 # Enterなら実行
 read -n1 -p "$NEW_BRANCH_NAME へgit checkoutしますか? (Enter / n): " INPUT_VALUE
-if [ ! -z "$INPUT_VALUE" ]; then
+if [ ! -z $INPUT_VALUE ]; then
   echo '\n中断しました'
   exit
 fi
