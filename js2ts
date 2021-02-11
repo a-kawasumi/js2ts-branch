@@ -5,17 +5,17 @@ if [ $# != 1 ]; then
     exit 0;
 fi
 
-BRANCH_NAME=$1
+readonly BRANCH_NAME=$1
+readonly SRC_DIR="src\/"
 
-SRC_DIR="src\/"
-REMOVE_SRC=$(echo $BRANCH_NAME | sed -e "s/${SRC_DIR}//g")
+readonly REMOVE_SRC=$(echo $BRANCH_NAME | sed -e "s/${SRC_DIR}//g")
 
 # join with a hyphen
-JOIN_HYPHEN=$(echo $REMOVE_SRC | sed -e "s/\//-/g")
-REMOVE_INDEX_JS=$(echo $JOIN_HYPHEN | sed -e "s/-index.js//g")
-REMOVE_JS=$(echo $REMOVE_INDEX_JS | sed -e "s/.js//g")
+readonly JOIN_HYPHEN=$(echo $REMOVE_SRC | sed -e "s/\//-/g")
+readonly REMOVE_INDEX_JS=$(echo $JOIN_HYPHEN | sed -e "s/-index.js//g")
+readonly REMOVE_JS=$(echo $REMOVE_INDEX_JS | sed -e "s/.js//g")
 
-NEW_BRANCH_NAME="js2ts/$REMOVE_JS"
+readonly NEW_BRANCH_NAME="js2ts/$REMOVE_JS"
 
 # Enterなら実行
 read -n1 -p "$NEW_BRANCH_NAME へgit checkoutしますか? (Enter / n): " INPUT_VALUE
